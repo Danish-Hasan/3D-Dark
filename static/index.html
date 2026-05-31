@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Customer Entry Form</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<title>3D Dark Art — Order Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg:        #0b0c10;
-    --panel:     #13151a;
-    --card:      #1a1d24;
-    --border:    #2a2d36;
-    --accent:    #00e5a0;
-    --accent2:   #00b8ff;
-    --danger:    #ff4f6a;
-    --text:      #eef0f6;
-    --muted:     #6b7080;
-    --success-bg:#0a2a1f;
-    --radius:    16px;
+    --bg:      #f5f6fa;
+    --white:   #ffffff;
+    --border:  #e3e6ef;
+    --accent:  #3a5cff;
+    --accent2: #7b2fff;
+    --success: #00b07a;
+    --danger:  #ff3d5a;
+    --text:    #1a1d2e;
+    --muted:   #8890a8;
+    --radius:  18px;
+    --shadow:  0 8px 40px rgba(58,92,255,0.10);
   }
 
   html { scroll-behavior: smooth; }
@@ -32,531 +32,589 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     padding: 0 16px 60px;
     position: relative;
-    overflow-x: hidden;
   }
 
-  /* Background mesh */
+  /* gradient header bg */
   body::before {
     content: '';
     position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 40% at 80% 10%, rgba(0,229,160,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 35% at 10% 80%, rgba(0,184,255,0.06) 0%, transparent 55%);
-    pointer-events: none;
+    top: 0; left: 0; right: 0;
+    height: 340px;
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1040 50%, #2a0a4a 100%);
     z-index: 0;
+    border-radius: 0 0 40px 40px;
   }
 
-  /* ── Header ── */
-  header {
+  /* ── Top bar ── */
+  .topbar {
     width: 100%;
     max-width: 580px;
-    padding: 48px 0 32px;
+    padding: 28px 0 0;
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 28px;
-  }
-
-  .brand-dot {
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 12px var(--accent);
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%,100% { opacity: 1; transform: scale(1); }
-    50%      { opacity: 0.5; transform: scale(0.8); }
-  }
-
-  .brand-label {
+  /* Brand name top */
+  .brand-name {
     font-family: 'Syne', sans-serif;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 800;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  h1 {
+  .brand-name .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #a78bfa, #7b2fff);
+    box-shadow: 0 0 10px #7b2fff;
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  @keyframes glow {
+    0%,100% { box-shadow: 0 0 8px #7b2fff; }
+    50%      { box-shadow: 0 0 18px #a78bfa; }
+  }
+
+  .topbar .badge {
+    background: rgba(255,255,255,0.10);
+    color: rgba(255,255,255,0.85);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.18);
+    margin-top: 4px;
+  }
+
+  .topbar h1 {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(28px, 6vw, 42px);
+    font-size: clamp(22px, 5vw, 32px);
     font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -1px;
-  }
-
-  h1 span {
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .subtitle {
-    margin-top: 10px;
-    font-size: 15px;
-    color: var(--muted);
-    font-weight: 300;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
   }
 
   /* ── Card ── */
   .card {
     width: 100%;
     max-width: 580px;
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: var(--white);
     border-radius: var(--radius);
-    padding: 36px 32px;
+    padding: 36px 32px 32px;
+    margin-top: 24px;
     position: relative;
     z-index: 1;
-    box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+    box-shadow: var(--shadow);
   }
 
-  .card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius);
-    background: linear-gradient(135deg, rgba(0,229,160,0.04) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
-  /* ── Form ── */
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-
-  .field {
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 22px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     gap: 8px;
   }
 
+  .card-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* section divider label */
+  .section-label {
+    grid-column: 1 / -1;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 4px 0 2px;
+    border-bottom: 1px solid #e8ecff;
+    margin-bottom: 2px;
+  }
+
+  /* ── Fields ── */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 7px; }
   .field.full { grid-column: 1 / -1; }
 
   label {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 6px;
   }
 
-  label .req { color: var(--accent); font-size: 14px; line-height: 1; }
+  label .req { color: var(--accent); margin-left: 2px; }
 
-  input, textarea, select {
-    background: var(--panel);
+  input, textarea {
+    background: var(--bg);
     border: 1.5px solid var(--border);
-    border-radius: 10px;
+    border-radius: 12px;
     color: var(--text);
     font-family: 'DM Sans', sans-serif;
     font-size: 15px;
     padding: 13px 16px;
     width: 100%;
-    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
     outline: none;
     -webkit-appearance: none;
   }
 
-  input::placeholder, textarea::placeholder { color: var(--muted); }
+  select {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    padding: 13px 16px;
+    width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238890a8' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
 
-  input:focus, textarea:focus, select:focus {
+  select:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(0,229,160,0.12);
-    background: #16191f;
+    box-shadow: 0 0 0 3px rgba(58,92,255,0.10);
+    background-color: #fff;
   }
 
-  input.error { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(255,79,106,0.12); }
-
-  textarea { resize: vertical; min-height: 88px; line-height: 1.5; }
-
-  .price-wrap {
-    position: relative;
+  select.error {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 3px rgba(255,61,90,0.10);
   }
 
+  select option { color: var(--text); background: #fff; }
+  select option[value=""] { color: #c0c5d8; }
+
+  input::placeholder, textarea::placeholder { color: #c0c5d8; }
+
+  input:focus, textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(58,92,255,0.10);
+    background: #fff;
+  }
+
+  input.error {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 3px rgba(255,61,90,0.10);
+  }
+
+  textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+  .price-wrap { position: relative; }
   .price-wrap .symbol {
     position: absolute;
-    left: 14px;
-    top: 50%;
+    left: 14px; top: 50%;
     transform: translateY(-50%);
     color: var(--accent);
-    font-size: 15px;
     font-weight: 600;
+    font-size: 15px;
     pointer-events: none;
   }
-
   .price-wrap input { padding-left: 30px; }
 
-  /* ── Divider ── */
-  .divider {
-    height: 1px;
-    background: var(--border);
-    margin: 24px 0;
+  /* ── Note ── */
+  .note {
     grid-column: 1 / -1;
+    background: #f0f3ff;
+    border: 1px solid #d0d8ff;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #4a5aaa;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  /* ── Submit ── */
+  /* ── Submit button ── */
   .btn-submit {
     grid-column: 1 / -1;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    color: #000;
+    background: linear-gradient(135deg, #0f0f1a, #2a0a4a);
+    color: #fff;
     border: none;
-    border-radius: 10px;
-    padding: 15px 28px;
+    border-radius: 12px;
+    padding: 16px 28px;
     font-family: 'Syne', sans-serif;
     font-size: 15px;
     font-weight: 700;
     letter-spacing: 0.5px;
     cursor: pointer;
     transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
-    position: relative;
-    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
+    margin-top: 4px;
   }
 
   .btn-submit:hover:not(:disabled) {
-    opacity: 0.92;
+    opacity: 0.88;
     transform: translateY(-1px);
-    box-shadow: 0 8px 28px rgba(0,229,160,0.3);
+    box-shadow: 0 8px 24px rgba(123,47,255,0.35);
   }
 
   .btn-submit:active:not(:disabled) { transform: translateY(0); }
-
   .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  .btn-submit .spinner {
+  .spinner {
     width: 16px; height: 16px;
-    border: 2.5px solid rgba(0,0,0,0.3);
-    border-top-color: #000;
+    border: 2.5px solid rgba(255,255,255,0.30);
+    border-top-color: #fff;
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
     display: none;
   }
 
   .btn-submit.loading .spinner { display: block; }
-  .btn-submit.loading .btn-text { opacity: 0.6; }
+  .btn-submit.loading .btn-text { opacity: 0.7; }
 
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Success screen ── */
+  .success-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 16px 10px 10px;
+    animation: fadeUp 0.5s ease;
+  }
+
+  .success-screen.show { display: flex; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .checkmark {
+    width: 72px; height: 72px;
+    background: linear-gradient(135deg, #00c98a, #00b07a);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    margin-bottom: 18px;
+    box-shadow: 0 8px 24px rgba(0,176,122,0.30);
+  }
+
+  .success-screen h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .success-screen p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 340px;
+    margin-bottom: 22px;
+  }
+
+  .ref-box {
+    background: #f0fff8;
+    border: 1.5px solid #a0ecd0;
+    border-radius: 12px;
+    padding: 14px 28px;
+    margin-bottom: 22px;
+  }
+
+  .ref-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--success);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .ref-id {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--success);
+    letter-spacing: 2px;
+  }
+
+  .btn-again {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 13px 28px;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .btn-again:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(58,92,255,0.12);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 24px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.5px;
+  }
 
   /* ── Toast ── */
   .toast {
     position: fixed;
-    bottom: 28px;
-    left: 50%;
+    bottom: 24px; left: 50%;
     transform: translateX(-50%) translateY(80px);
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 22px;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    background: var(--text);
+    color: #fff;
+    border-radius: 50px;
+    padding: 12px 22px;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.20);
     z-index: 999;
     transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
+    white-space: nowrap;
     max-width: 90vw;
-    white-space: nowrap;
   }
 
-  .toast.show { transform: translateX(-50%) translateY(0); }
-  .toast.success { border-color: var(--accent); }
-  .toast.error   { border-color: var(--danger); }
-  .toast .icon   { font-size: 18px; }
-
-  /* ── Success card ── */
-  .success-banner {
-    display: none;
-    background: var(--success-bg);
-    border: 1px solid rgba(0,229,160,0.3);
-    border-radius: 12px;
-    padding: 18px 20px;
-    margin-top: 20px;
-    grid-column: 1 / -1;
-    animation: fadeIn 0.4s ease;
-  }
-
-  .success-banner.show { display: block; }
-
-  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
-
-  .success-banner h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    color: var(--accent);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .id-badge {
-    display: inline-block;
-    background: rgba(0,229,160,0.15);
-    color: var(--accent);
-    border: 1px solid rgba(0,229,160,0.3);
-    border-radius: 6px;
-    padding: 4px 12px;
-    font-family: 'Syne', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin: 4px 0 8px;
-  }
-
-  .success-meta {
-    font-size: 12px;
-    color: var(--muted);
-  }
-
-  /* ── Recent entries ── */
-  .recent-section {
-    width: 100%;
-    max-width: 580px;
-    margin-top: 28px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .recent-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 14px;
-  }
-
-  .recent-header h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .refresh-btn {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--muted);
-    font-size: 12px;
-    padding: 5px 12px;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: border-color 0.2s, color 0.2s;
-  }
-
-  .refresh-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-  .entries-list { display: flex; flex-direction: column; gap: 10px; }
-
-  .entry-row {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 18px;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 12px;
-    align-items: center;
-    animation: fadeIn 0.3s ease;
-  }
-
-  .entry-id {
-    font-family: 'Syne', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--accent);
-    background: rgba(0,229,160,0.1);
-    padding: 3px 8px;
-    border-radius: 5px;
-    letter-spacing: 1px;
-    white-space: nowrap;
-  }
-
-  .entry-info .name {
-    font-size: 14px;
-    font-weight: 500;
-  }
-
-  .entry-info .product {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-
-  .entry-price {
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--accent2);
-    text-align: right;
-    white-space: nowrap;
-  }
-
-  .empty-state {
-    text-align: center;
-    padding: 28px;
-    color: var(--muted);
-    font-size: 14px;
-    background: var(--card);
-    border: 1px dashed var(--border);
-    border-radius: 12px;
-  }
+  .toast.show  { transform: translateX(-50%) translateY(0); }
+  .toast.error { background: var(--danger); }
 
   /* ── Responsive ── */
   @media (max-width: 500px) {
-    .card { padding: 24px 18px; }
+    .card { padding: 22px 14px 18px; }
     .form-grid { grid-template-columns: 1fr; }
-    .field.full { grid-column: 1; }
-    .divider, .btn-submit, .success-banner { grid-column: 1; }
+    .field.full, .note, .btn-submit, .section-label { grid-column: 1; }
+    body::before { height: 280px; border-radius: 0 0 28px 28px; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="brand">
-    <div class="brand-dot"></div>
-    <span class="brand-label">Live System</span>
+<!-- Top header -->
+<div class="topbar">
+  <div class="brand-name">
+    <div class="dot"></div>
+    3D Dark Art
   </div>
-  <h1>Customer<br/><span>Entry Form</span></h1>
-  <p class="subtitle">Fills directly into your Google Sheet — from any device.</p>
-</header>
+  <span class="badge">✦ Secure Order Form</span>
+  <h1>Share Your Details</h1>
+</div>
 
-<div class="card">
+<!-- Form card -->
+<div class="card" id="formCard">
+  <div class="card-title" id="cardTitle">Customer Information</div>
+
+  <!-- Success screen -->
+  <div class="success-screen" id="successScreen">
+    <div class="checkmark">✓</div>
+    <h2>Order Submitted!</h2>
+    <p>Thank you! Your details have been received successfully. We'll get in touch with you shortly.</p>
+    <div class="ref-box">
+      <div class="ref-label">Your Reference ID</div>
+      <div class="ref-id" id="refId">—</div>
+    </div>
+    <button class="btn-again" onclick="resetForm()">Submit Another Response</button>
+  </div>
+
+  <!-- The form -->
   <form id="customerForm" novalidate>
     <div class="form-grid">
 
+      <!-- ── Product Info ── -->
+      <div class="section-label">Product Details</div>
+
       <div class="field">
         <label>Full Name <span class="req">*</span></label>
-        <input type="text" id="name" placeholder="e.g. Amit Sharma" autocomplete="name"/>
+        <input type="text" id="name" placeholder="Your full name" autocomplete="name"/>
       </div>
 
       <div class="field">
-        <label>Product <span class="req">*</span></label>
-        <input type="text" id="product" placeholder="e.g. Laptop"/>
-      </div>
-
-      <div class="field full">
-        <label>Address <span class="req">*</span></label>
-        <textarea id="address" placeholder="Full address — street, city, state…"></textarea>
+        <label>Wall Art <span class="req">*</span></label>
+        <select id="product">
+          <option value="" disabled selected>— Select type —</option>
+          <option value="Personal">Personal</option>
+          <option value="Brand Logo">Brand Logo</option>
+          <option value="Family">Family</option>
+          <option value="Other">Other</option>
+        </select>
       </div>
 
       <div class="field">
-        <label>Price <span class="req">*</span></label>
+        <label>Size <span class="req">*</span></label>
+        <input type="text" id="size" placeholder="e.g. S, M, L, XL, 42…"/>
+      </div>
+
+      <div class="field">
+        <label>Price / Budget (₹) <span class="req">*</span></label>
         <div class="price-wrap">
           <span class="symbol">₹</span>
-          <input type="number" id="price" placeholder="0.00" min="0" step="0.01"/>
+          <input type="number" id="price" placeholder="Enter amount" min="0" step="0.01"/>
         </div>
       </div>
 
-      <div class="field" style="justify-content:flex-end;">
-        <label style="visibility:hidden">x</label>
-        <div style="background:var(--panel);border:1.5px solid var(--border);border-radius:10px;padding:13px 16px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;">
-          <span style="font-size:16px;">🪪</span>
-          ID auto-generated
-        </div>
+      <!-- ── Address Info ── -->
+      <div class="section-label">Delivery Address</div>
+
+      <div class="field full">
+        <label>Full Address <span class="req">*</span></label>
+        <textarea id="address" placeholder="House no., street, locality, city…"></textarea>
       </div>
 
-      <div class="divider"></div>
+      <div class="field">
+        <label>Pin Code <span class="req">*</span></label>
+        <input type="text" id="pincode" placeholder="e.g. 224001" maxlength="6" inputmode="numeric"/>
+      </div>
+
+      <div class="field">
+        <label>State <span class="req">*</span></label>
+        <input type="text" id="state" placeholder="e.g. Uttar Pradesh"/>
+      </div>
+
+      <!-- ── Contact Info ── -->
+      <div class="section-label">Contact Details</div>
+
+      <div class="field">
+        <label>Phone No. <span class="req">*</span></label>
+        <input type="tel" id="phone" placeholder="10-digit mobile no." maxlength="10" inputmode="numeric"/>
+      </div>
+
+      <div class="field">
+        <label>Alternate Phone No.</label>
+        <input type="tel" id="altphone" placeholder="Optional" maxlength="10" inputmode="numeric"/>
+      </div>
+
+      <div class="note full">
+        🔒 Your details are secure and will only be used to process your order.
+      </div>
 
       <button type="submit" class="btn-submit" id="submitBtn">
         <div class="spinner"></div>
-        <span class="btn-text">Save to Google Sheets →</span>
+        <span class="btn-text">Submit</span>
       </button>
-
-      <div class="success-banner" id="successBanner">
-        <h3>✅ Customer Saved!</h3>
-        <div class="id-badge" id="generatedId">—</div>
-        <div class="success-meta" id="savedTime"></div>
-      </div>
 
     </div>
   </form>
 </div>
 
-<!-- Recent entries -->
-<div class="recent-section">
-  <div class="recent-header">
-    <h2>Recent Entries</h2>
-    <button class="refresh-btn" onclick="loadRecent()">↻ Refresh</button>
-  </div>
-  <div class="entries-list" id="entriesList">
-    <div class="empty-state">Loading recent entries…</div>
-  </div>
-</div>
+<div class="footer">© 3D Dark Art &nbsp;·&nbsp; All rights reserved</div>
 
 <!-- Toast -->
 <div class="toast" id="toast">
-  <span class="icon" id="toastIcon"></span>
+  <span id="toastIcon"></span>
   <span id="toastMsg"></span>
 </div>
 
 <script>
-  const API = "";  // Empty = same server (relative URL)
-
-  /* ── Toast ── */
   function showToast(msg, type = "success") {
     const t = document.getElementById("toast");
     document.getElementById("toastMsg").textContent = msg;
     document.getElementById("toastIcon").textContent = type === "success" ? "✅" : "❌";
     t.className = `toast ${type} show`;
-    setTimeout(() => t.classList.remove("show"), 3500);
+    setTimeout(() => t.classList.remove("show"), 3800);
   }
 
-  /* ── Validation ── */
+  const requiredFields = ["name", "product", "size", "price", "address", "pincode", "state", "phone"];
+
   function validate() {
     let ok = true;
-    ["name", "address", "product", "price"].forEach(id => {
+    requiredFields.forEach(id => {
       const el = document.getElementById(id);
       el.classList.remove("error");
-      if (!el.value.trim()) { el.classList.add("error"); ok = false; }
+      const val = el.value.trim();
+      if (!val || val === "") { el.classList.add("error"); ok = false; }
     });
-    const price = document.getElementById("price");
-    if (price.value && isNaN(parseFloat(price.value))) {
-      price.classList.add("error"); ok = false;
+    // Phone validation — must be 10 digits
+    const phone = document.getElementById("phone");
+    if (phone.value.trim() && !/^\d{10}$/.test(phone.value.trim())) {
+      phone.classList.add("error"); ok = false;
+    }
+    // Pincode — must be 6 digits
+    const pin = document.getElementById("pincode");
+    if (pin.value.trim() && !/^\d{6}$/.test(pin.value.trim())) {
+      pin.classList.add("error"); ok = false;
     }
     return ok;
   }
 
-  /* ── Submit ── */
+  function resetForm() {
+    document.getElementById("customerForm").reset();
+    document.getElementById("customerForm").style.display = "block";
+    document.getElementById("successScreen").classList.remove("show");
+    document.getElementById("cardTitle").style.display = "flex";
+  }
+
   document.getElementById("customerForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (!validate()) { showToast("Please fill in all fields.", "error"); return; }
+    if (!validate()) { showToast("Please fill in all required fields correctly.", "error"); return; }
 
     const btn = document.getElementById("submitBtn");
     btn.disabled = true;
     btn.classList.add("loading");
-    btn.querySelector(".btn-text").textContent = "Saving…";
+    btn.querySelector(".btn-text").textContent = "Submitting…";
 
     const payload = {
       name:    document.getElementById("name").value.trim(),
-      address: document.getElementById("address").value.trim(),
       product: document.getElementById("product").value.trim(),
-      price:   document.getElementById("price").value.trim()
+      size:    document.getElementById("size").value.trim(),
+      price:   document.getElementById("price").value.trim(),
+      address: document.getElementById("address").value.trim(),
+      pincode: document.getElementById("pincode").value.trim(),
+      state:   document.getElementById("state").value.trim(),
+      phone:   document.getElementById("phone").value.trim(),
+      altphone:document.getElementById("altphone").value.trim() || "N/A"
     };
 
     try {
-      const res  = await fetch(`${API}/submit`, {
+      const res  = await fetch("/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -564,58 +622,30 @@
       const data = await res.json();
 
       if (data.success) {
-        document.getElementById("generatedId").textContent = data.customer_id;
-        document.getElementById("savedTime").textContent   = "Saved on " + data.timestamp;
-        document.getElementById("successBanner").classList.add("show");
-        showToast(`Saved as ${data.customer_id}`);
-        document.getElementById("customerForm").reset();
-        loadRecent();
+        document.getElementById("refId").textContent = data.customer_id;
+        document.getElementById("customerForm").style.display = "none";
+        document.getElementById("cardTitle").style.display = "none";
+        document.getElementById("successScreen").classList.add("show");
       } else {
         showToast(data.message || "Something went wrong.", "error");
       }
-    } catch (err) {
-      showToast("Cannot reach server. Is server.py running?", "error");
+    } catch {
+      showToast("Cannot reach server. Please try again.", "error");
     } finally {
       btn.disabled = false;
       btn.classList.remove("loading");
-      btn.querySelector(".btn-text").textContent = "Save to Google Sheets →";
+      btn.querySelector(".btn-text").textContent = "Submit";
     }
   });
 
-  /* ── Load recent ── */
-  async function loadRecent() {
-    const list = document.getElementById("entriesList");
-    try {
-      const res  = await fetch(`${API}/customers`);
-      const data = await res.json();
-      if (!data.success || !data.customers.length) {
-        list.innerHTML = '<div class="empty-state">No entries yet. Add your first customer above!</div>';
-        return;
-      }
-      const recent = data.customers.slice(-5).reverse();
-      list.innerHTML = recent.map(c => `
-        <div class="entry-row">
-          <span class="entry-id">${c["Customer ID"] || "—"}</span>
-          <div class="entry-info">
-            <div class="name">${c["Name"] || "—"}</div>
-            <div class="product">${c["Product"] || "—"} · ${c["Address"] ? c["Address"].substring(0,30) + "…" : ""}</div>
-          </div>
-          <div class="entry-price">₹${parseFloat(c["Price (₹)"] || 0).toLocaleString("en-IN")}</div>
-        </div>
-      `).join("");
-    } catch {
-      list.innerHTML = '<div class="empty-state">Could not load entries. Make sure server.py is running.</div>';
-    }
-  }
-
-  /* Clear error on type */
-  ["name","address","product","price"].forEach(id => {
-    document.getElementById(id).addEventListener("input", function() {
+  // Clear error on input/change
+  [...requiredFields, "altphone"].forEach(id => {
+    const el = document.getElementById(id);
+    const evt = el.tagName === "SELECT" ? "change" : "input";
+    el.addEventListener(evt, function() {
       this.classList.remove("error");
     });
   });
-
-  loadRecent();
 </script>
 </body>
 </html>
