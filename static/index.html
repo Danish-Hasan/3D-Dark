@@ -4,28 +4,28 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>3D Dark Art — Order Form</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<!-- Elegant & Formal Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg:      #f5f6fa;
-    --white:   #ffffff;
-    --border:  #e3e6ef;
-    --accent:  #3a5cff;
-    --accent2: #7b2fff;
+    --bg:      #0a0a0a;
+    --card-bg: #141416;
+    --border:  #262629;
+    --accent:  #ffffff;
+    --accent-gold: #d4af37;
     --success: #00b07a;
     --danger:  #ff3d5a;
-    --text:    #1a1d2e;
-    --muted:   #8890a8;
-    --radius:  18px;
-    --shadow:  0 8px 40px rgba(58,92,255,0.10);
+    --text:    #f3f4f6;
+    --muted:   #9ca3af;
+    --radius:  14px;
   }
 
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
@@ -33,106 +33,107 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 0 16px 60px;
+    padding: 40px 16px 60px;
     position: relative;
+    overflow-x: hidden;
   }
 
-  /* gradient header bg */
+  /* ── Background Product Slideshow ── */
+  .bg-slideshow {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: slideBackground 36s infinite ease-in-out;
+    transition: background-image 1.5s ease-in-out;
+  }
+
+  @keyframes slideBackground {
+    0%, 11%   { background-image: url('Product_1.1.jpg'); }
+    12%, 22%  { background-image: url('Product_1.2.jpg'); }
+    23%, 33%  { background-image: url('Product_1.3.jpg'); }
+    34%, 44%  { background-image: url('Product_1.4.jpg'); }
+    45%, 55%  { background-image: url('Product_1.5.jpg'); }
+    56%, 66%  { background-image: url('Product_1.7.jpg'); }
+    67%, 77%  { background-image: url('Product_1.8.jpg'); }
+    78%, 88%  { background-image: url('Product_1.9.PNG'); }
+    89%, 100% { background-image: url('Product_1.1.jpg'); }
+  }
+
+  /* Dark Overlay tint to maintain visibility */
   body::before {
     content: '';
     position: fixed;
-    top: 0; left: 0; right: 0;
-    height: 340px;
-    background: linear-gradient(135deg, #0f0f1a 0%, #1a1040 50%, #2a0a4a 100%);
-    z-index: 0;
-    border-radius: 0 0 40px 40px;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.83);
+    z-index: 1;
   }
 
-  /* ── Top bar ── */
-  .topbar {
+  /* ── Logo & Header styling ── */
+  .brand-wrapper {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-bottom: 12px;
     width: 100%;
     max-width: 580px;
-    padding: 28px 0 0;
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
   }
 
-  /* Brand name top */
+  .brand-logo {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  }
+
   .brand-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    font-weight: 800;
+    font-family: 'Cinzel', serif;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #ffffff;
+    text-transform: uppercase;
+  }
+  
+  .brand-subtitle {
+    font-size: 11px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-weight: 500;
   }
 
-  .brand-name .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #a78bfa, #7b2fff);
-    box-shadow: 0 0 10px #7b2fff;
-    animation: glow 2s ease-in-out infinite;
-  }
-
-  @keyframes glow {
-    0%,100% { box-shadow: 0 0 8px #7b2fff; }
-    50%      { box-shadow: 0 0 18px #a78bfa; }
-  }
-
-  .topbar .badge {
-    background: rgba(255,255,255,0.10);
-    color: rgba(255,255,255,0.85);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 5px 14px;
-    border-radius: 50px;
-    border: 1px solid rgba(255,255,255,0.18);
-    margin-top: 4px;
-  }
-
-  .topbar h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(22px, 5vw, 32px);
-    font-weight: 800;
-    color: #fff;
-    line-height: 1.15;
-    letter-spacing: -0.5px;
-  }
-
-  /* ── Card ── */
+  /* ── Card Configuration ── */
   .card {
     width: 100%;
     max-width: 580px;
-    background: var(--white);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 36px 32px 32px;
-    margin-top: 24px;
+    padding: 40px 36px;
+    margin-top: 16px;
     position: relative;
-    z-index: 1;
-    box-shadow: var(--shadow);
+    z-index: 2;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
   }
 
   .card-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 12px;
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: 22px;
+    margin-bottom: 28px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
   }
 
   .card-title::after {
@@ -142,334 +143,318 @@
     background: var(--border);
   }
 
-  /* section divider label */
   .section-label {
     grid-column: 1 / -1;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Cinzel', serif;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--accent);
-    padding: 4px 0 2px;
-    border-bottom: 1px solid #e8ecff;
-    margin-bottom: 2px;
+    color: #ffffff;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+    margin-top: 10px;
   }
 
-  /* ── Fields ── */
+  /* ── Form Inputs ── */
   .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 20px;
   }
 
-  .field { display: flex; flex-direction: column; gap: 7px; }
+  .field { display: flex; flex-direction: column; gap: 8px; }
   .field.full { grid-column: 1 / -1; }
 
   label {
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--muted);
   }
 
-  label .req { color: var(--accent); margin-left: 2px; }
+  label .req { color: var(--danger); margin-left: 2px; }
 
-  input, textarea {
-    background: var(--bg);
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
+  input, textarea, select {
+    background: #1a1a1e;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
     padding: 13px 16px;
     width: 100%;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: all 0.2s ease;
     outline: none;
-    -webkit-appearance: none;
   }
 
   select {
-    background: var(--bg);
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    padding: 13px 16px;
-    width: 100%;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    outline: none;
-    -webkit-appearance: none;
     appearance: none;
     cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238890a8' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239ca3af' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 16px center;
     padding-right: 40px;
   }
 
-  select:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(58,92,255,0.10);
-    background-color: #fff;
+  input:focus, textarea:focus, select:focus {
+    border-color: rgba(255,255,255,0.4);
+    background: #222226;
   }
 
-  select.error {
+  input.error, textarea.error, select.error {
     border-color: var(--danger);
-    box-shadow: 0 0 0 3px rgba(255,61,90,0.10);
+    background: rgba(255, 61, 90, 0.05);
   }
 
-  select option { color: var(--text); background: #fff; }
-  select option[value=""] { color: #c0c5d8; }
-
-  input::placeholder, textarea::placeholder { color: #c0c5d8; }
-
-  input:focus, textarea:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(58,92,255,0.10);
-    background: #fff;
-  }
-
-  input.error {
-    border-color: var(--danger);
-    box-shadow: 0 0 0 3px rgba(255,61,90,0.10);
-  }
-
-  textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+  textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
 
   .price-wrap { position: relative; }
   .price-wrap .symbol {
     position: absolute;
     left: 14px; top: 50%;
     transform: translateY(-50%);
-    color: var(--accent);
-    font-weight: 600;
-    font-size: 15px;
+    color: var(--muted);
+    font-weight: 500;
+    font-size: 14px;
     pointer-events: none;
   }
-  .price-wrap input { padding-left: 30px; }
+  .price-wrap input { padding-left: 32px; }
 
-  /* ── Note ── */
   .note {
     grid-column: 1 / -1;
-    background: #f0f3ff;
-    border: 1px solid #d0d8ff;
-    border-radius: 10px;
+    background: #1a1a1e;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     padding: 12px 16px;
-    font-size: 13px;
-    color: #4a5aaa;
+    font-size: 12px;
+    color: var(--muted);
     display: flex;
     align-items: center;
     gap: 8px;
   }
 
-  /* ── Submit button ── */
+  /* ── Buttons ── */
   .btn-submit {
     grid-column: 1 / -1;
-    background: linear-gradient(135deg, #0f0f1a, #2a0a4a);
-    color: #fff;
+    background: #ffffff;
+    color: #000000;
     border: none;
-    border-radius: 12px;
+    border-radius: 8px;
     padding: 16px 28px;
-    font-family: 'Syne', sans-serif;
-    font-size: 15px;
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     cursor: pointer;
-    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    margin-top: 4px;
+    gap: 10px;
+    margin-top: 8px;
+    text-transform: uppercase;
   }
 
   .btn-submit:hover:not(:disabled) {
-    opacity: 0.88;
+    background: #e2e8f0;
     transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(123,47,255,0.35);
+    box-shadow: 0 8px 20px rgba(255,255,255,0.1);
   }
 
-  .btn-submit:active:not(:disabled) { transform: translateY(0); }
   .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
   .spinner {
     width: 16px; height: 16px;
-    border: 2.5px solid rgba(255,255,255,0.30);
-    border-top-color: #fff;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-top-color: #000;
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
     display: none;
   }
 
   .btn-submit.loading .spinner { display: block; }
-  .btn-submit.loading .btn-text { opacity: 0.7; }
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── Success screen ── */
+  /* ── Success UI with Details Preview ── */
   .success-screen {
     display: none;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 16px 10px 10px;
-    animation: fadeUp 0.5s ease;
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   .success-screen.show { display: flex; }
 
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
+    from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: none; }
   }
 
   .checkmark {
-    width: 72px; height: 72px;
-    background: linear-gradient(135deg, #00c98a, #00b07a);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 32px;
-    margin-bottom: 18px;
-    box-shadow: 0 8px 24px rgba(0,176,122,0.30);
+    font-size: 40px;
+    color: var(--accent-gold);
+    margin-bottom: 12px;
   }
 
   .success-screen h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--text);
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
     margin-bottom: 8px;
+    letter-spacing: 1px;
   }
 
   .success-screen p {
     color: var(--muted);
     font-size: 14px;
     line-height: 1.6;
-    max-width: 340px;
-    margin-bottom: 22px;
+    max-width: 440px;
+    margin-bottom: 26px;
   }
 
-  .ref-box {
-    background: #f0fff8;
-    border: 1.5px solid #a0ecd0;
-    border-radius: 12px;
-    padding: 14px 28px;
-    margin-bottom: 22px;
+  /* Preview Container table style */
+  .preview-box {
+    width: 100%;
+    background: #1a1a1e;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 28px;
+    text-align: left;
   }
 
-  .ref-label {
+  .preview-title {
+    font-family: 'Cinzel', serif;
     font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--success);
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-
-  .ref-id {
-    font-family: 'Syne', sans-serif;
-    font-size: 26px;
-    font-weight: 800;
-    color: var(--success);
-    letter-spacing: 2px;
-  }
-
-  .btn-again {
-    background: var(--bg);
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    padding: 13px 28px;
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
     font-weight: 700;
-    color: var(--text);
-    cursor: pointer;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    letter-spacing: 1px;
+    color: #fff;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
   }
 
-  .btn-again:hover {
-    border-color: var(--accent);
-    box-shadow: 0 4px 12px rgba(58,92,255,0.12);
+  .preview-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.02);
   }
 
-  /* ── Footer ── */
+  .preview-item .p-label { color: var(--muted); font-weight: 400; }
+  .preview-item .p-val { color: #fff; font-weight: 500; text-align: right; max-width: 65%; }
+
+  .btn-instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 32px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(220, 39, 67, 0.2);
+  }
+
+  .btn-instagram:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 39, 67, 0.4);
+  }
+
   .footer {
-    margin-top: 24px;
-    font-size: 12px;
-    color: rgba(255,255,255,0.45);
+    margin-top: 32px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
     text-align: center;
     position: relative;
-    z-index: 1;
-    letter-spacing: 0.5px;
+    z-index: 2;
+    letter-spacing: 1px;
+    font-family: 'Cinzel', serif;
   }
 
-  /* ── Toast ── */
   .toast {
     position: fixed;
     bottom: 24px; left: 50%;
     transform: translateX(-50%) translateY(80px);
-    background: var(--text);
-    color: #fff;
-    border-radius: 50px;
-    padding: 12px 22px;
+    background: #fff;
+    color: #000;
+    border-radius: 4px;
+    padding: 12px 24px;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     display: flex; align-items: center; gap: 8px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.20);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     z-index: 999;
-    transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
-    white-space: nowrap;
-    max-width: 90vw;
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1);
   }
 
   .toast.show  { transform: translateX(-50%) translateY(0); }
-  .toast.error { background: var(--danger); }
+  .toast.error { background: var(--danger); color: #fff; }
 
-  /* ── Responsive ── */
   @media (max-width: 500px) {
-    .card { padding: 22px 14px 18px; }
+    .card { padding: 28px 20px; }
     .form-grid { grid-template-columns: 1fr; }
     .field.full, .note, .btn-submit, .section-label { grid-column: 1; }
-    body::before { height: 280px; border-radius: 0 0 28px 28px; }
+    body { padding-top: 24px; }
   }
 </style>
 </head>
 <body>
 
-<!-- Top header -->
-<div class="topbar">
-  <div class="brand-name">
-    <div class="dot"></div>
-    3D Dark Art
-  </div>
-  <span class="badge">✦ Secure Order Form</span>
-  <h1>Share Your Details</h1>
+<!-- Animated Slide Background Element -->
+<div class="bg-slideshow"></div>
+
+<!-- Top Branding Header -->
+<div class="brand-wrapper">
+  <img src="Brand_Logo.jpg" alt="3D Dark Art Logo" class="brand-logo"/>
+  <div class="brand-name">3D Dark Art</div>
+  <div class="brand-subtitle">Premium Custom Creations</div>
 </div>
 
-<!-- Form card -->
+<!-- Main Form Card -->
 <div class="card" id="formCard">
-  <div class="card-title" id="cardTitle">Customer Information</div>
+  <div class="card-title" id="cardTitle">Order Placement Form</div>
 
-  <!-- Success screen -->
+  <!-- Thank You & Preview Screen -->
   <div class="success-screen" id="successScreen">
-    <div class="checkmark">✓</div>
-    <h2>Order Submitted!</h2>
-    <p>Thank you! Your details have been received successfully. We'll get in touch with you shortly.</p>
-    <div class="ref-box">
-      <div class="ref-label">Your Reference ID</div>
-      <div class="ref-id" id="refId">—</div>
+    <div class="checkmark">✦</div>
+    <h2>Thank You!</h2>
+    <p>Your custom order request has been received with elegance. Here is a preview of the metadata synchronized with our database:</p>
+    
+    <div class="preview-box">
+      <div class="preview-title" id="previewRef">Order ID: —</div>
+      <div class="preview-item"><span class="p-label">Customer Name</span><span class="p-val" id="pName">—</span></div>
+      <div class="preview-item"><span class="p-label">Wall Art Variant</span><span class="p-val" id="pProduct">—</span></div>
+      <div class="preview-item"><span class="p-label">Dimension / Size</span><span class="p-val" id="pSize">—</span></div>
+      <div class="preview-item"><span class="p-label">Quoted Price</span><span class="p-val" id="pPrice">—</span></div>
+      <div class="preview-item"><span class="p-label">Contact Number</span><span class="p-val" id="pPhone">—</span></div>
+      <div class="preview-item"><span class="p-label">Shipping Address</span><span class="p-val" id="pAddress">—</span></div>
     </div>
-    <button class="btn-again" onclick="resetForm()">Submit Another Response</button>
+
+    <p style="margin-bottom: 12px; font-size: 12px;">Stay connected and track our craft journey updates here:</p>
+    <a href="https://www.instagram.com/3ddarkart?igsh=bjVnOThpYjRpeXo4" target="_blank" class="btn-instagram">
+       Follow @3ddarkart on Instagram
+    </a>
   </div>
 
-  <!-- The form -->
-  <form id="customerForm" novalidate>
+  <!-- The Order Form -->
+  <form id="customerForm" autocomplete="on" novalidate>
     <div class="form-grid">
 
-      <!-- ── Product Info ── -->
       <div class="section-label">Product Details</div>
 
       <div class="field">
@@ -490,7 +475,7 @@
 
       <div class="field">
         <label>Size <span class="req">*</span></label>
-        <input type="text" id="size" placeholder="e.g. S, M, L, XL, 42…"/>
+        <input type="text" id="size" placeholder="e.g. 2x2, 1x1, 1x1.5, A4"/>
       </div>
 
       <div class="field">
@@ -501,7 +486,6 @@
         </div>
       </div>
 
-      <!-- ── Address Info ── -->
       <div class="section-label">Delivery Address</div>
 
       <div class="field full">
@@ -519,7 +503,6 @@
         <input type="text" id="state" placeholder="e.g. Uttar Pradesh"/>
       </div>
 
-      <!-- ── Contact Info ── -->
       <div class="section-label">Contact Details</div>
 
       <div class="field">
@@ -533,21 +516,21 @@
       </div>
 
       <div class="note full">
-        🔒 Your details are secure and will only be used to process your order.
+        🔒 Encrypted secure database node connection.
       </div>
 
       <button type="submit" class="btn-submit" id="submitBtn">
         <div class="spinner"></div>
-        <span class="btn-text">Submit</span>
+        <span class="btn-text">Submit Details</span>
       </button>
 
     </div>
   </form>
 </div>
 
-<div class="footer">© 3D Dark Art &nbsp;·&nbsp; All rights reserved</div>
+<div class="footer">© 3D Dark Art &nbsp;·&nbsp; Studio Desk</div>
 
-<!-- Toast -->
+<!-- Toast Notice -->
 <div class="toast" id="toast">
   <span id="toastIcon"></span>
   <span id="toastMsg"></span>
@@ -557,7 +540,7 @@
   function showToast(msg, type = "success") {
     const t = document.getElementById("toast");
     document.getElementById("toastMsg").textContent = msg;
-    document.getElementById("toastIcon").textContent = type === "success" ? "✅" : "❌";
+    document.getElementById("toastIcon").textContent = type === "success" ? "✓" : "✕";
     t.className = `toast ${type} show`;
     setTimeout(() => t.classList.remove("show"), 3800);
   }
@@ -569,15 +552,14 @@
     requiredFields.forEach(id => {
       const el = document.getElementById(id);
       el.classList.remove("error");
-      const val = el.value.trim();
-      if (!val || val === "") { el.classList.add("error"); ok = false; }
+      if (!el.value.trim()) { el.classList.add("error"); ok = false; }
     });
-    // Phone validation — must be 10 digits
+    
     const phone = document.getElementById("phone");
     if (phone.value.trim() && !/^\d{10}$/.test(phone.value.trim())) {
       phone.classList.add("error"); ok = false;
     }
-    // Pincode — must be 6 digits
+    
     const pin = document.getElementById("pincode");
     if (pin.value.trim() && !/^\d{6}$/.test(pin.value.trim())) {
       pin.classList.add("error"); ok = false;
@@ -585,21 +567,14 @@
     return ok;
   }
 
-  function resetForm() {
-    document.getElementById("customerForm").reset();
-    document.getElementById("customerForm").style.display = "block";
-    document.getElementById("successScreen").classList.remove("show");
-    document.getElementById("cardTitle").style.display = "flex";
-  }
-
   document.getElementById("customerForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (!validate()) { showToast("Please fill in all required fields correctly.", "error"); return; }
+    if (!validate()) { showToast("Please check mandatory fields.", "error"); return; }
 
     const btn = document.getElementById("submitBtn");
     btn.disabled = true;
     btn.classList.add("loading");
-    btn.querySelector(".btn-text").textContent = "Submitting…";
+    btn.querySelector(".btn-text").textContent = "Processing…";
 
     const payload = {
       name:    document.getElementById("name").value.trim(),
@@ -622,29 +597,36 @@
       const data = await res.json();
 
       if (data.success) {
-        document.getElementById("refId").textContent = data.customer_id;
+        // Hydrate Live Summary Preview Elements
+        document.getElementById("previewRef").textContent = `Order ID: ${data.customer_id}`;
+        document.getElementById("pName").textContent = payload.name;
+        document.getElementById("pProduct").textContent = payload.product;
+        document.getElementById("pSize").textContent = payload.size;
+        document.getElementById("pPrice").textContent = `₹${payload.price}`;
+        document.getElementById("pPhone").textContent = payload.phone;
+        document.getElementById("pAddress").textContent = `${payload.address}, ${payload.state} - ${payload.pincode}`;
+
+        // Viewport Switcher
         document.getElementById("customerForm").style.display = "none";
         document.getElementById("cardTitle").style.display = "none";
         document.getElementById("successScreen").classList.add("show");
+        showToast("Form recorded successfully.");
       } else {
-        showToast(data.message || "Something went wrong.", "error");
+        showToast(data.message || "Submission anomaly.", "error");
       }
     } catch {
-      showToast("Cannot reach server. Please try again.", "error");
+      showToast("Server unreachable.", "error");
     } finally {
       btn.disabled = false;
       btn.classList.remove("loading");
-      btn.querySelector(".btn-text").textContent = "Submit";
+      btn.querySelector(".btn-text").textContent = "Submit Details";
     }
   });
 
-  // Clear error on input/change
-  [...requiredFields, "altphone"].forEach(id => {
+  requiredFields.forEach(id => {
     const el = document.getElementById(id);
-    const evt = el.tagName === "SELECT" ? "change" : "input";
-    el.addEventListener(evt, function() {
-      this.classList.remove("error");
-    });
+    const eventType = el.tagName === "SELECT" ? "change" : "input";
+    el.addEventListener(eventType, function() { this.classList.remove("error"); });
   });
 </script>
 </body>
