@@ -27,8 +27,6 @@ SCOPES = [
 
 
 def get_worksheet():
-    # Load credentials from environment variable (for Render.com)
-    # or fall back to credentials.json file (for local use)
     creds_json = os.environ.get("GOOGLE_CREDENTIALS")
     if creds_json:
         creds_dict = json.loads(creds_json)
@@ -50,12 +48,25 @@ def get_worksheet():
     except gspread.WorksheetNotFound:
         worksheet = spreadsheet.add_worksheet(title=WORKSHEET_NAME, rows="1000", cols="20")
 
+    # Add header row if sheet is empty
     if not worksheet.get_all_values():
-        headers = ["Customer ID", "Name", "Address", "Product", "Price (₹)", "Date & Time"]
+        headers = [
+            "Customer ID",
+            "Name",
+            "Wall Art",
+            "Size",
+            "Price (₹)",
+            "Address",
+            "Pin Code",
+            "State",
+            "Phone No.",
+            "Alternate Phone No.",
+            "Date & Time"
+        ]
         worksheet.append_row(headers)
-        worksheet.format("A1:F1", {
+        worksheet.format("A1:K1", {
             "textFormat": {"bold": True},
-            "backgroundColor": {"red": 0.13, "green": 0.13, "blue": 0.18}
+            "backgroundColor": {"red": 0.08, "green": 0.06, "blue": 0.15}
         })
 
     return worksheet
@@ -63,7 +74,7 @@ def get_worksheet():
 
 def generate_customer_id(worksheet):
     existing_data = worksheet.get_all_values()
-    existing_ids = set()
+    existing_ids  = set()
     if len(existing_data) > 1:
         for row in existing_data[1:]:
             if row and row[0].startswith("CUST-"):
@@ -83,14 +94,23 @@ def index():
 @app.route("/submit", methods=["POST"])
 def submit_customer():
     try:
-        data    = request.get_json()
-        name    = data.get("name", "").strip()
-        address = data.get("address", "").strip()
-        product = data.get("product", "").strip()
-        price   = data.get("price", "").strip()
+        data = request.get_json()
 
-        if not all([name, address, product, price]):
-            return jsonify({"success": False, "message": "All fields are required."}), 400
+        # Required fields
+        name    = data.get("name",    "").strip()
+        product = data.get("product", "").strip()
+        size    = data.get("size",    "").strip()
+        price   = data.get("price",   "").strip()
+        address = data.get("address", "").strip()
+        pincode = data.get("pincode", "").strip()
+        state   = data.get("state",   "").strip()
+        phone   = data.get("phone",   "").strip()
+
+        # Optional
+        altphone = data.get("altphone", "N/A").strip() or "N/A"
+
+        if not all([name, product, size, price, address, pincode, state, phone]):
+            return jsonify({"success": False, "message": "All required fields must be filled."}), 400
 
         try:
             price = float(price)
@@ -101,11 +121,23 @@ def submit_customer():
         customer_id = generate_customer_id(worksheet)
         timestamp   = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        worksheet.append_row([customer_id, name, address, product, price, timestamp])
+        worksheet.append_row([
+            customer_id,
+            name,
+            product,
+            size,
+            price,
+            address,
+            pincode,
+            state,
+            phone,
+            altphone,
+            timestamp
+        ])
 
         return jsonify({
             "success":     True,
-            "message":     "Details submitted successfully!",
+            "message":     "Order submitted successfully!",
             "customer_id": customer_id,
             "timestamp":   timestamp
         })
@@ -116,7 +148,7 @@ def submit_customer():
 
 if __name__ == "__main__":
     print("=" * 50)
-    print("  Customer Form Server Running...")
+    print("  3D Dark Art — Order Form Server")
     print(f"  Open: http://localhost:{PORT}")
     print("=" * 50)
     app.run(host="0.0.0.0", port=PORT, debug=False)
