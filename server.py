@@ -103,6 +103,10 @@ def generate_order_id(worksheet):
 def index():
     return send_from_directory(os.path.join(BASE_DIR, "static"), "index.html")
 
+# ADD THIS CRITICAL ROUTE BELOW TO SERVE IMAGES
+@app.route("/<path:filename>")
+def serve_static_files(filename):
+    return send_from_directory(app.static_folder, filename)
 
 @app.route("/submit", methods=["POST"])
 def submit_order():
