@@ -101,7 +101,7 @@ def generate_order_id(worksheet):
 
 @app.route("/")
 def index():
-    app = Flask(__name__, static_folder=os.path.join(BASE_DIR, "static"))
+    return send_from_directory(os.path.join(BASE_DIR, "static"), "index.html")
 
 
 @app.route("/submit", methods=["POST"])
