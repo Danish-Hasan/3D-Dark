@@ -3,21 +3,22 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>3D Dark Art — Custom Wall Art Orders</title>
+<title>3D Dark Art — Order Form</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg:        #0a0a0a;
-    --card-bg:   #141416;
-    --border:    #262629;
-    --accent:    #ffffff;
-    --success:   #00b07a;
-    --danger:    #ff3d5a;
-    --text:      #f3f4f6;
-    --muted:     #9ca3af;
-    --radius:    14px;
+    --bg:      #0a0a0a;
+    --card-bg: #141416;
+    --border:  #262629;
+    --accent:  #ffffff;
+    --accent-gold: #d4af37;
+    --success: #00b07a;
+    --danger:  #ff3d5a;
+    --text:    #f3f4f6;
+    --muted:   #9ca3af;
+    --radius:  14px;
   }
 
   html { scroll-behavior: smooth; }
@@ -36,47 +37,12 @@
     overflow-x: hidden;
   }
 
-  /* ── Background Slideshow ── */
-  .bg-slideshow {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 0;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    animation: slideBackground 60s infinite ease-in-out;
-    transition: background-image 2s ease-in-out;
-  }
-
-  @keyframes slideBackground {
-    0%, 10%    { background-image: url('/3d800.png'); }
-    11%, 20%   { background-image: url('/Product_1_3.PNG'); }
-    21%, 30%   { background-image: url('/Product_1_5.PNG'); }
-    31%, 40%   { background-image: url('/Product_1_9.PNG'); }
-    41%, 50%   { background-image: url('/Product_1_10.png'); }
-    51%, 60%   { background-image: url('/product_1_11.png'); }
-    61%, 70%   { background-image: url('/Product_1_12.png'); }
-    71%, 80%   { background-image: url('/Product_1_14.png'); }
-    81%, 90%   { background-image: url('/product_5.jpeg'); }
-    91%, 100%  { background-image: url('/product_6.jpeg'); }
-  }
-
-  /* Dark overlay for text readability */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(10, 10, 10, 0.85);
-    z-index: 1;
-    backdrop-filter: blur(2px);
-  }
-
-  /* ── Brand Header ── */
+  /* ── Logo & Header styling ── */
   .brand-wrapper {
     position: relative;
     z-index: 2;
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     width: 100%;
     max-width: 580px;
   }
@@ -84,36 +50,32 @@
   .brand-logo {
     width: 90px;
     height: 90px;
-    object-fit: contain;
-    margin-bottom: 16px;
-    filter: drop-shadow(0 8px 25px rgba(0,0,0,0.6));
-    animation: floatLogo 3s ease-in-out infinite;
-  }
-
-  @keyframes floatLogo {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
   }
 
   .brand-name {
     font-family: 'Cinzel', serif;
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: 3px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 4px;
     color: #ffffff;
     text-transform: uppercase;
-    margin-bottom: 4px;
   }
-
+  
   .brand-subtitle {
-    font-size: 12px;
-    letter-spacing: 2.5px;
+    font-size: 11px;
+    letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--muted);
+    margin-top: 6px;
     font-weight: 500;
   }
 
-  /* ── Card ── */
+  /* ── Card Configuration ── */
   .card {
     width: 100%;
     max-width: 580px;
@@ -121,11 +83,10 @@
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 40px 36px;
-    margin-top: 20px;
+    margin-top: 16px;
     position: relative;
     z-index: 2;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
   }
 
   .card-title {
@@ -156,13 +117,13 @@
     letter-spacing: 2px;
     text-transform: uppercase;
     color: #ffffff;
-    padding-bottom: 8px;
+    padding-bottom: 6px;
     border-bottom: 1px solid var(--border);
-    margin-bottom: 6px;
-    margin-top: 12px;
+    margin-bottom: 4px;
+    margin-top: 10px;
   }
 
-  /* ── Form Grid ── */
+  /* ── Form Inputs ── */
   .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -174,7 +135,7 @@
 
   label {
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--muted);
@@ -191,7 +152,7 @@
     font-size: 14px;
     padding: 13px 16px;
     width: 100%;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
     outline: none;
   }
 
@@ -205,14 +166,13 @@
   }
 
   input:focus, textarea:focus, select:focus {
-    border-color: rgba(255,255,255,0.5);
+    border-color: rgba(255,255,255,0.4);
     background: #222226;
-    box-shadow: 0 0 0 3px rgba(255,255,255,0.08);
   }
 
   input.error, textarea.error, select.error {
     border-color: var(--danger);
-    background: rgba(255, 61, 90, 0.08);
+    background: rgba(255, 61, 90, 0.05);
   }
 
   textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
@@ -223,7 +183,7 @@
     left: 14px; top: 50%;
     transform: translateY(-50%);
     color: var(--muted);
-    font-weight: 600;
+    font-weight: 500;
     font-size: 14px;
     pointer-events: none;
   }
@@ -231,7 +191,7 @@
 
   .note {
     grid-column: 1 / -1;
-    background: rgba(255,255,255,0.05);
+    background: #1a1a1e;
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 12px 16px;
@@ -242,10 +202,10 @@
     gap: 8px;
   }
 
-  /* ── Submit Button ── */
+  /* ── Buttons ── */
   .btn-submit {
     grid-column: 1 / -1;
-    background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+    background: #ffffff;
     color: #000000;
     border: none;
     border-radius: 8px;
@@ -255,7 +215,7 @@
     font-weight: 700;
     letter-spacing: 1px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -265,16 +225,16 @@
   }
 
   .btn-submit:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(255,255,255,0.25);
+    background: #e2e8f0;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(255,255,255,0.1);
   }
 
-  .btn-submit:active:not(:disabled) { transform: translateY(0); }
-  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
   .spinner {
     width: 16px; height: 16px;
-    border: 2.5px solid rgba(0,0,0,0.2);
+    border: 2px solid rgba(0,0,0,0.2);
     border-top-color: #000;
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
@@ -282,119 +242,109 @@
   }
 
   .btn-submit.loading .spinner { display: block; }
-  .btn-submit.loading .btn-text { opacity: 0.7; }
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── Success Screen ── */
+  /* ── Success UI with Details Preview ── */
   .success-screen {
     display: none;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 20px 10px;
-    animation: fadeUp 0.5s ease;
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   .success-screen.show { display: flex; }
 
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
+    from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: none; }
   }
 
   .checkmark {
-    width: 72px; height: 72px;
-    background: linear-gradient(135deg, #00c98a, #00b07a);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 32px;
-    margin-bottom: 18px;
-    box-shadow: 0 8px 24px rgba(0,176,122,0.3);
+    font-size: 40px;
+    color: var(--accent-gold);
+    margin-bottom: 12px;
   }
 
   .success-screen h2 {
     font-family: 'Cinzel', serif;
     font-size: 24px;
-    font-weight: 800;
-    color: var(--text);
-    margin-bottom: 10px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
   }
 
   .success-screen p {
     color: var(--muted);
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.6;
-    max-width: 360px;
-    margin-bottom: 20px;
+    max-width: 440px;
+    margin-bottom: 26px;
   }
 
+  /* Preview Container table style */
   .preview-box {
     width: 100%;
-    background: rgba(0,0,0,0.3);
+    background: #1a1a1e;
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 20px;
+    padding: 20px;
+    margin-bottom: 28px;
     text-align: left;
   }
 
   .preview-title {
     font-family: 'Cinzel', serif;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    color: var(--success);
     letter-spacing: 1px;
-    margin-bottom: 12px;
-    padding-bottom: 8px;
+    color: #fff;
     border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
   }
 
   .preview-item {
     display: flex;
     justify-content: space-between;
-    padding: 8px 0;
-    font-size: 12px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 13px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.02);
   }
 
-  .preview-item:last-child { border-bottom: none; }
-
-  .p-label {
-    color: var(--muted);
-    font-weight: 500;
-  }
-
-  .p-val {
-    color: var(--text);
-    font-weight: 600;
-    text-align: right;
-    word-break: break-word;
-    max-width: 50%;
-  }
+  .preview-item .p-label { color: var(--muted); font-weight: 400; }
+  .preview-item .p-val { color: #fff; font-weight: 500; text-align: right; max-width: 65%; }
 
   .btn-instagram {
-    display: inline-block;
-    background: linear-gradient(135deg, #FF6B6B 0%, #FFB86C 100%);
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
     color: #fff;
     border: none;
     border-radius: 8px;
-    padding: 12px 24px;
+    padding: 14px 32px;
     font-family: 'Montserrat', sans-serif;
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.5px;
-    cursor: pointer;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(220, 39, 67, 0.2);
   }
 
-  .btn-instagram:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,107,107,0.3); }
+  .btn-instagram:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 39, 67, 0.4);
+  }
 
   .footer {
     margin-top: 32px;
     font-size: 11px;
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.25);
     text-align: center;
     position: relative;
     z-index: 2;
@@ -426,53 +376,45 @@
     .form-grid { grid-template-columns: 1fr; }
     .field.full, .note, .btn-submit, .section-label { grid-column: 1; }
     body { padding-top: 24px; }
-    .brand-name { font-size: 22px; }
   }
 </style>
 </head>
 <body>
 
-<!-- Background Slideshow -->
-<div class="bg-slideshow"></div>
-
-<!-- Brand Header -->
 <div class="brand-wrapper">
   <img src="/Brand_Logo.jpg" alt="3D Dark Art Logo" class="brand-logo"/>
   <div class="brand-name">3D Dark Art</div>
-  <div class="brand-subtitle">Premium Custom Wall Art Creations</div>
+  <div class="brand-subtitle">Premium Custom Creations</div>
 </div>
 
-<!-- Main Card -->
 <div class="card" id="formCard">
-  <div class="card-title" id="cardTitle">Order Your Custom Wall Art</div>
+  <div class="card-title" id="cardTitle">Order Placement Form</div>
 
-  <!-- Success Screen -->
   <div class="success-screen" id="successScreen">
     <div class="checkmark">✦</div>
-    <h2>Order Confirmed!</h2>
-    <p>Your custom wall art request has been received. We'll review your order and contact you shortly with next steps.</p>
+    <h2>Thank You!</h2>
+    <p>Your custom order request has been received with elegance. Here is a preview of the metadata synchronized with our database:</p>
     
     <div class="preview-box">
       <div class="preview-title" id="previewRef">Order ID: —</div>
-      <div class="preview-item"><span class="p-label">Name</span><span class="p-val" id="pName">—</span></div>
-      <div class="preview-item"><span class="p-label">Wall Art Type</span><span class="p-val" id="pProduct">—</span></div>
-      <div class="preview-item"><span class="p-label">Size</span><span class="p-val" id="pSize">—</span></div>
-      <div class="preview-item"><span class="p-label">Budget</span><span class="p-val" id="pPrice">—</span></div>
-      <div class="preview-item"><span class="p-label">Phone</span><span class="p-val" id="pPhone">—</span></div>
-      <div class="preview-item"><span class="p-label">Location</span><span class="p-val" id="pAddress">—</span></div>
+      <div class="preview-item"><span class="p-label">Customer Name</span><span class="p-val" id="pName">—</span></div>
+      <div class="preview-item"><span class="p-label">Wall Art Variant</span><span class="p-val" id="pProduct">—</span></div>
+      <div class="preview-item"><span class="p-label">Dimension / Size</span><span class="p-val" id="pSize">—</span></div>
+      <div class="preview-item"><span class="p-label">Quoted Price</span><span class="p-val" id="pPrice">—</span></div>
+      <div class="preview-item"><span class="p-label">Contact Number</span><span class="p-val" id="pPhone">—</span></div>
+      <div class="preview-item"><span class="p-label">Shipping Address</span><span class="p-val" id="pAddress">—</span></div>
     </div>
 
-    <p style="font-size: 12px; margin-bottom: 16px;">Follow us for latest designs & updates:</p>
-    <a href="https://www.instagram.com/3ddarkart" target="_blank" class="btn-instagram">
-       📸 Follow @3ddarkart on Instagram
+    <p style="margin-bottom: 12px; font-size: 12px;">Stay connected and track our craft journey updates here:</p>
+    <a href="https://www.instagram.com/3ddarkart?igsh=bjVnOThpYjRpeXo4" target="_blank" class="btn-instagram">
+       Follow @3ddarkart on Instagram
     </a>
   </div>
 
-  <!-- Form -->
   <form id="customerForm" autocomplete="on" novalidate>
     <div class="form-grid">
 
-      <div class="section-label">📋 Product Details</div>
+      <div class="section-label">Product Details</div>
 
       <div class="field">
         <label>Full Name <span class="req">*</span></label>
@@ -480,7 +422,7 @@
       </div>
 
       <div class="field">
-        <label>Wall Art Type <span class="req">*</span></label>
+        <label>Wall Art <span class="req">*</span></label>
         <select id="product">
           <option value="" disabled selected>— Select type —</option>
           <option value="Personal">Personal</option>
@@ -491,19 +433,19 @@
       </div>
 
       <div class="field">
-        <label>Size / Dimension <span class="req">*</span></label>
-        <input type="text" id="size" placeholder="e.g. 2x2 ft, 1x1 ft, A4"/>
+        <label>Size <span class="req">*</span></label>
+        <input type="text" id="size" placeholder="e.g. 2x2, 1x1, 1x1.5, A4"/>
       </div>
 
       <div class="field">
-        <label>Budget (₹) <span class="req">*</span></label>
+        <label>Price / Budget (₹) <span class="req">*</span></label>
         <div class="price-wrap">
           <span class="symbol">₹</span>
           <input type="number" id="price" placeholder="Enter amount" min="0" step="0.01"/>
         </div>
       </div>
 
-      <div class="section-label">📍 Delivery Address</div>
+      <div class="section-label">Delivery Address</div>
 
       <div class="field full">
         <label>Full Address <span class="req">*</span></label>
@@ -512,7 +454,7 @@
 
       <div class="field">
         <label>Pin Code <span class="req">*</span></label>
-        <input type="text" id="pincode" placeholder="6-digit pin code" maxlength="6" inputmode="numeric"/>
+        <input type="text" id="pincode" placeholder="e.g. 224001" maxlength="6" inputmode="numeric"/>
       </div>
 
       <div class="field">
@@ -520,34 +462,33 @@
         <input type="text" id="state" placeholder="e.g. Uttar Pradesh"/>
       </div>
 
-      <div class="section-label">☎️ Contact Information</div>
+      <div class="section-label">Contact Details</div>
 
       <div class="field">
-        <label>Phone Number <span class="req">*</span></label>
-        <input type="tel" id="phone" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric"/>
+        <label>Phone No. <span class="req">*</span></label>
+        <input type="tel" id="phone" placeholder="10-digit mobile no." maxlength="10" inputmode="numeric"/>
       </div>
 
       <div class="field">
-        <label>Alternate Phone (Optional)</label>
-        <input type="tel" id="altphone" placeholder="Secondary contact" maxlength="10" inputmode="numeric"/>
+        <label>Alternate Phone No.</label>
+        <input type="tel" id="altphone" placeholder="Optional" maxlength="10" inputmode="numeric"/>
       </div>
 
       <div class="note full">
-        🔒 Your information is secure and encrypted. We never share your data.
+        🔒 Encrypted secure database node connection.
       </div>
 
       <button type="submit" class="btn-submit" id="submitBtn">
         <div class="spinner"></div>
-        <span class="btn-text">Submit Order</span>
+        <span class="btn-text">Submit Details</span>
       </button>
 
     </div>
   </form>
 </div>
 
-<div class="footer">© 2024 3D Dark Art Studio • All Rights Reserved</div>
+<div class="footer">© 3D Dark Art &nbsp;· &nbsp; Studio Desk</div>
 
-<!-- Toast Notification -->
 <div class="toast" id="toast">
   <span id="toastIcon"></span>
   <span id="toastMsg"></span>
@@ -559,7 +500,7 @@
     document.getElementById("toastMsg").textContent = msg;
     document.getElementById("toastIcon").textContent = type === "success" ? "✓" : "✕";
     t.className = `toast ${type} show`;
-    setTimeout(() => t.classList.remove("show"), 4000);
+    setTimeout(() => t.classList.remove("show"), 3800);
   }
 
   const requiredFields = ["name", "product", "size", "price", "address", "pincode", "state", "phone"];
@@ -569,60 +510,44 @@
     requiredFields.forEach(id => {
       const el = document.getElementById(id);
       el.classList.remove("error");
-      const val = el.value.trim();
-      if (!val || val === "") {
-        el.classList.add("error");
-        ok = false;
-      }
+      if (!el.value.trim()) { el.classList.add("error"); ok = false; }
     });
     
     const phone = document.getElementById("phone");
     if (phone.value.trim() && !/^\d{10}$/.test(phone.value.trim())) {
-      phone.classList.add("error");
-      ok = false;
+      phone.classList.add("error"); ok = false;
     }
     
     const pin = document.getElementById("pincode");
     if (pin.value.trim() && !/^\d{6}$/.test(pin.value.trim())) {
-      pin.classList.add("error");
-      ok = false;
+      pin.classList.add("error"); ok = false;
     }
     return ok;
   }
 
-  function resetForm() {
-    document.getElementById("customerForm").reset();
-    document.getElementById("customerForm").style.display = "block";
-    document.getElementById("successScreen").classList.remove("show");
-    document.getElementById("cardTitle").style.display = "flex";
-  }
-
   document.getElementById("customerForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (!validate()) {
-      showToast("Please fill all required fields correctly.", "error");
-      return;
-    }
+    if (!validate()) { showToast("Please check mandatory fields.", "error"); return; }
 
     const btn = document.getElementById("submitBtn");
     btn.disabled = true;
     btn.classList.add("loading");
-    btn.querySelector(".btn-text").textContent = "Processing...";
+    btn.querySelector(".btn-text").textContent = "Processing…";
 
     const payload = {
-      name:     document.getElementById("name").value.trim(),
-      product:  document.getElementById("product").value.trim(),
-      size:     document.getElementById("size").value.trim(),
-      price:    document.getElementById("price").value.trim(),
-      address:  document.getElementById("address").value.trim(),
-      pincode:  document.getElementById("pincode").value.trim(),
-      state:    document.getElementById("state").value.trim(),
-      phone:    document.getElementById("phone").value.trim(),
-      altphone: document.getElementById("altphone").value.trim() || "N/A"
+      name:    document.getElementById("name").value.trim(),
+      product: document.getElementById("product").value.trim(),
+      size:    document.getElementById("size").value.trim(),
+      price:   document.getElementById("price").value.trim(),
+      address: document.getElementById("address").value.trim(),
+      pincode: document.getElementById("pincode").value.trim(),
+      state:   document.getElementById("state").value.trim(),
+      phone:   document.getElementById("phone").value.trim(),
+      altphone:document.getElementById("altphone").value.trim() || "N/A"
     };
 
     try {
-      const res = await fetch("/submit", {
+      const res  = await fetch("/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -630,37 +555,36 @@
       const data = await res.json();
 
       if (data.success) {
+        // Hydrate Live Summary Preview Elements
         document.getElementById("previewRef").textContent = `Order ID: ${data.customer_id}`;
         document.getElementById("pName").textContent = payload.name;
         document.getElementById("pProduct").textContent = payload.product;
         document.getElementById("pSize").textContent = payload.size;
-        document.getElementById("pPrice").textContent = `₹${parseFloat(payload.price).toLocaleString('en-IN')}`;
+        document.getElementById("pPrice").textContent = `₹${payload.price}`;
         document.getElementById("pPhone").textContent = payload.phone;
         document.getElementById("pAddress").textContent = `${payload.address}, ${payload.state} - ${payload.pincode}`;
 
+        // Viewport Switcher
         document.getElementById("customerForm").style.display = "none";
         document.getElementById("cardTitle").style.display = "none";
         document.getElementById("successScreen").classList.add("show");
-        showToast("Order submitted successfully!");
+        showToast("Form recorded successfully.");
       } else {
-        showToast(data.message || "Submission failed.", "error");
+        showToast(data.message || "Submission anomaly.", "error");
       }
-    } catch (err) {
-      showToast("Cannot reach server. Please try again.", "error");
-      console.error(err);
+    } catch {
+      showToast("Server unreachable.", "error");
     } finally {
       btn.disabled = false;
       btn.classList.remove("loading");
-      btn.querySelector(".btn-text").textContent = "Submit Order";
+      btn.querySelector(".btn-text").textContent = "Submit Details";
     }
   });
 
   requiredFields.forEach(id => {
     const el = document.getElementById(id);
     const eventType = el.tagName === "SELECT" ? "change" : "input";
-    el.addEventListener(eventType, function() {
-      this.classList.remove("error");
-    });
+    el.addEventListener(eventType, function() { this.classList.remove("error"); });
   });
 </script>
 </body>
